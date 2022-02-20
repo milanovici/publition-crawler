@@ -11,8 +11,10 @@ public class Question {
     private final String question;
     private final int likes;
     private final Instant date;
+    private final String id;
 
-    public Question(String title, String question, int likes, Instant date) {
+    public Question(String id, String title, String question, int likes, Instant date) {
+        this.id = id;
         this.title = title;
         this.question = question;
         this.likes = likes;
@@ -35,6 +37,10 @@ public class Question {
         return date;
     }
 
+    public String getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Question{" +
@@ -42,11 +48,13 @@ public class Question {
                 ", question='" + question + '\'' +
                 ", likes=" + likes +
                 ", date=" + date +
+                ", id='" + id + '\'' +
                 '}';
     }
 
     public static Document toDocument(Question question) {
         Document doc = new Document();
+        doc.append("id", question.getId());
         doc.append("title", question.getTitle());
         doc.append("question", question.getQuestion());
         doc.append("likes", question.getLikes());

@@ -52,7 +52,8 @@ public class Main {
                 String likes = questionDocument.select("div.likes").select("like-button").attr("like-count");
                 String date = questionDocument.select("div.blog-intro__date").get(0).text();
                 Instant inst = FMT.parse(date, Instant::from);
-                Question q = new Question(title, question, Integer.parseInt(likes), inst);
+                String id = questionDocument.baseUri().split("/")[questionDocument.baseUri().split("/").length - 1];
+                Question q = new Question(id, title, question, Integer.parseInt(likes), inst);
                 System.out.println(q);
                 mongoClient.getDatabase(connectionString.getDatabase()).getCollection("publitio").insertOne(Question.toDocument(q));
             }
