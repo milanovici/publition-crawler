@@ -59,9 +59,9 @@ public class Question {
         Document doc = new Document();
         doc.append("id", question.getId());
         doc.append("title", question.getTitle());
-        doc.append("title.word", tokenize(question.getTitle()));
+        doc.append("titleWord", tokenize(question.getTitle()));
         doc.append("question", question.getQuestion());
-        doc.append("question.word", tokenize(question.getQuestion()));
+        doc.append("questionWord", tokenize(question.getQuestion()));
         doc.append("likes", question.getLikes());
         doc.append("date", question.getDate().toString());
         return doc;
