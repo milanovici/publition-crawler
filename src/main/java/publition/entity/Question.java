@@ -76,7 +76,7 @@ public class Question {
                 .collect(Collectors.toSet());
     }
 
-    public static List<String> ignoredWords = List.of(
+    public static List<String> ignoredWords = Stream.of(
             "of","with","at","from","into","during","including","until","against","among","throughout","despite",
             "towards","upon","concerning","to","in","for","on","by","about","like","through","over","before",
             "between","after","since","without","under","within","along","following","across","behind","beyond",
@@ -90,5 +90,7 @@ public class Question {
             "could","day","do","even","find","first","get","give","go","have","here","how","just","know","look","make",
             "man","many","more","new","no","not","one","only","other","people","say","see","take","tell","then","thing",
             "think","time","two","use","very","want","way","well","will","would","year"
-    );
+    )
+            .map(String::toLowerCase)
+            .collect(Collectors.toList());
 }
