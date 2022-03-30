@@ -70,8 +70,9 @@ public class Question {
 
     private static Set<String> tokenize(String input) {
         return Stream.of(input.split(" "))
+                .map(String::toLowerCase)
                 .distinct()
-                .filter(ignoredWords::contains)
+                .filter(w -> !ignoredWords.contains(w))
                 .collect(Collectors.toSet());
     }
 
