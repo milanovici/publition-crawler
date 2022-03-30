@@ -4,6 +4,10 @@ package publition.entity;
 import org.bson.Document;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Question {
 
@@ -56,9 +60,34 @@ public class Question {
         Document doc = new Document();
         doc.append("id", question.getId());
         doc.append("title", question.getTitle());
+        doc.append("title.word", tokenize(question.getTitle()));
         doc.append("question", question.getQuestion());
+        doc.append("question.word", tokenize(question.getQuestion()));
         doc.append("likes", question.getLikes());
         doc.append("date", question.getDate().toString());
         return doc;
     }
+
+    private static Set<String> tokenize(String title) {
+        return Stream.of(title.split(" "))
+                .distinct()
+                .filter(ignoredWords::contains)
+                .collect(Collectors.toSet());
+    }
+
+    public static List<String> ignoredWords = List.of(
+            "of","with","at","from","into","during","including","until","against","among","throughout","despite",
+            "towards","upon","concerning","to","in","for","on","by","about","like","through","over","before",
+            "between","after","since","without","under","within","along","following","across","behind","beyond",
+            "plus","except","but","up","out","around","down","off","above","near","and","that","or","as","if","when",
+            "than","because","while","where","so","though","whether","although","nor","once","unless","now","your",
+            "I","they","their","we","who","them","its","our","my","those","he","us","her","something","me","yourself",
+            "someone","everything","itself","everyone","themselves","anyone","him","whose","myself","everybody",
+            "ourselves","himself","somebody","yours","herself","whoever","you","it","this","what","which","these",
+            "his","she","lot","anything","whatever","nobody","none","mine","anybody","some","there","all","another",
+            "same","certain","nothing","self","nowhere","whom","why","much","the","a","an","also","be","can","come",
+            "could","day","do","even","find","first","get","give","go","have","here","how","just","know","look","make",
+            "man","many","more","new","no","not","one","only","other","people","say","see","take","tell","then","thing",
+            "think","time","two","use","very","want","way","well","will","would","year"
+    );
 }
