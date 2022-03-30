@@ -5,7 +5,6 @@ import org.bson.Document;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -72,6 +71,7 @@ public class Question {
         return Stream.of(input.split(" "))
                 .map(String::toLowerCase)
                 .distinct()
+                .filter(w -> !w.isBlank())
                 .filter(w -> !ignoredWords.contains(w))
                 .map(w -> w.replaceAll("\\p{Punct}", ""))
                 .collect(Collectors.joining(","));
