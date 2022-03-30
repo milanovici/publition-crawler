@@ -68,12 +68,13 @@ public class Question {
         return doc;
     }
 
-    private static Set<String> tokenize(String input) {
+    private static String tokenize(String input) {
         return Stream.of(input.split(" "))
                 .map(String::toLowerCase)
                 .distinct()
                 .filter(w -> !ignoredWords.contains(w))
-                .collect(Collectors.toSet());
+                .map(w -> w.replaceAll("\\p{Punct}", ""))
+                .collect(Collectors.joining(","));
     }
 
     public static List<String> ignoredWords = Stream.of(
