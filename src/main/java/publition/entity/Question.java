@@ -68,8 +68,8 @@ public class Question {
         return doc;
     }
 
-    private static Set<String> tokenize(String title) {
-        return Stream.of(title.split(" "))
+    private static Set<String> tokenize(String input) {
+        return Stream.of(input.split(" "))
                 .distinct()
                 .filter(ignoredWords::contains)
                 .collect(Collectors.toSet());
